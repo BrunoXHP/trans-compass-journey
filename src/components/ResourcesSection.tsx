@@ -24,7 +24,7 @@ const ResourcesSection = () => {
     },
     {
       title: "Como Contribuir",
-      description: "Saiba como você pode ajudar a melhorar a plataforma e apoiar a comunidade trans.",
+      description: "Saiba como você pode ajudar a melhorar nosso site e apoiar a comunidade trans brasileira.",
       icon: Heart,
       href: "#contribuir",
       buttonText: "Contribuir",
@@ -86,7 +86,7 @@ const ResourcesSection = () => {
                 Para Desenvolvedores
               </h2>
               <p className="text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
-                O TransCare é um projeto open-source construído com React, TypeScript e Tailwind CSS. 
+                O TransCare é um projeto open-source construído com React, TypeScript e CSS. 
                 Convidamos desenvolvedores a contribuir com melhorias, correções e novas funcionalidades.
               </p>
               
