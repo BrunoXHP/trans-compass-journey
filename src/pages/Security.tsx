@@ -1,18 +1,18 @@
 
 import Header from '@/components/Header';
-import HeroSection from '@/components/HeroSection';
+import SecuritySection from '@/components/SecuritySection';
 import Footer from '@/components/Footer';
 
-const Index = () => {
+const Security = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
-        <HeroSection />
+      <main className="pt-20">
+        <SecuritySection />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default Security;

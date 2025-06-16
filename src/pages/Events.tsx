@@ -1,18 +1,18 @@
 
 import Header from '@/components/Header';
-import HeroSection from '@/components/HeroSection';
+import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
 
-const Index = () => {
+const Events = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
-        <HeroSection />
+      <main className="pt-20">
+        <EventsSection />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default Events;
