@@ -1,46 +1,69 @@
-
 import { Heart, Instagram, Twitter, Facebook, Mail } from 'lucide-react';
-
 const Footer = () => {
-  const footerSections = [
-    {
-      title: "Plataforma",
-      links: [
-        { label: "Sobre TH", href: "#sobre-th" },
-        { label: "Agenda", href: "#agenda" },
-        { label: "Comunidade", href: "#comunidade" },
-        { label: "Eventos", href: "#eventos" }
-      ]
-    },
-    {
-      title: "Suporte",
-      links: [
-        { label: "Central de Ajuda", href: "#contato" },
-        { label: "Denúncias", href: "#seguranca" },
-        { label: "Contato", href: "#contato" },
-        { label: "FAQ", href: "#contato" }
-      ]
-    },
-    {
-      title: "Legal",
-      links: [
-        { label: "Política de Privacidade", href: "#" },
-        { label: "Termos de Uso", href: "#" },
-        { label: "LGPD", href: "#" },
-        { label: "Diretrizes da Comunidade", href: "#seguranca" }
-      ]
-    }
-  ];
-
-  const socialLinks = [
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Mail, href: "#", label: "E-mail" }
-  ];
-
-  return (
-    <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+  const footerSections = [{
+    title: "Plataforma",
+    links: [{
+      label: "Sobre TH",
+      href: "#sobre-th"
+    }, {
+      label: "Agenda",
+      href: "#agenda"
+    }, {
+      label: "Comunidade",
+      href: "#comunidade"
+    }, {
+      label: "Eventos",
+      href: "#eventos"
+    }]
+  }, {
+    title: "Suporte",
+    links: [{
+      label: "Central de Ajuda",
+      href: "#contato"
+    }, {
+      label: "Denúncias",
+      href: "#seguranca"
+    }, {
+      label: "Contato",
+      href: "#contato"
+    }, {
+      label: "FAQ",
+      href: "#contato"
+    }]
+  }, {
+    title: "Legal",
+    links: [{
+      label: "Política de Privacidade",
+      href: "#"
+    }, {
+      label: "Termos de Uso",
+      href: "#"
+    }, {
+      label: "LGPD",
+      href: "#"
+    }, {
+      label: "Diretrizes da Comunidade",
+      href: "#seguranca"
+    }]
+  }];
+  const socialLinks = [{
+    icon: Instagram,
+    href: "#",
+    label: "Instagram"
+  }, {
+    icon: Twitter,
+    href: "#",
+    label: "Twitter"
+  }, {
+    icon: Facebook,
+    href: "#",
+    label: "Facebook"
+  }, {
+    icon: Mail,
+    href: "#",
+    label: "E-mail"
+  }];
+  return <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           {/* Main Footer Content */}
@@ -49,7 +72,7 @@ const Footer = () => {
             <div className="md:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 rounded-full bg-gradient-trans"></div>
-                <span className="text-2xl font-bold">TransCuidado</span>
+                <span className="text-2xl font-bold">Transcare</span>
               </div>
               <p className="text-gray-300 mb-6 text-sm leading-relaxed">
                 Uma plataforma segura e acolhedora para a comunidade trans navegar sua jornada com suporte, informação e cuidado.
@@ -57,37 +80,23 @@ const Footer = () => {
               
               {/* Social Links */}
               <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-trans-pink/30 transition-colors duration-200"
-                    aria-label={social.label}
-                  >
+                {socialLinks.map((social, index) => <a key={index} href={social.href} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-trans-pink/30 transition-colors duration-200" aria-label={social.label}>
                     <social.icon className="w-5 h-5" />
-                  </a>
-                ))}
+                  </a>)}
               </div>
             </div>
 
             {/* Footer Sections */}
-            {footerSections.map((section, index) => (
-              <div key={index}>
+            {footerSections.map((section, index) => <div key={index}>
                 <h3 className="font-semibold text-lg mb-4 text-trans-pink">{section.title}</h3>
                 <ul className="space-y-3">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <a
-                        href={link.href}
-                        className="text-gray-300 hover:text-trans-blue transition-colors duration-200 text-sm"
-                      >
+                  {section.links.map((link, linkIndex) => <li key={linkIndex}>
+                      <a href={link.href} className="text-gray-300 hover:text-trans-blue transition-colors duration-200 text-sm">
                         {link.label}
                       </a>
-                    </li>
-                  ))}
+                    </li>)}
                 </ul>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Mission Statement */}
@@ -145,8 +154,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
