@@ -1,85 +1,167 @@
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Menu, X, Heart, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Calendar, Users, User, Menu, X } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuItems = [{
-    label: 'Home',
-    href: '/'
-  }, {
-    label: 'Sobre TH',
-    href: '/sobre-th'
-  }, {
-    label: 'Agenda',
-    href: '/agenda',
-    icon: Calendar
-  }, {
-    label: 'Comunidade',
-    href: '/comunidade',
-    icon: Users
-  }, {
-    label: 'Eventos',
-    href: '/eventos'
-  }, {
-    label: 'Segurança',
-    href: '/seguranca'
-  }, {
-    label: 'Contato',
-    href: '/contato'
-  }];
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-trans-pink/20">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  const menuItems = [
+    { href: '/sobre-th', label: 'Sobre TH' },
+    { href: '/agenda', label: 'Agenda' },
+    { href: '/comunidade', label: 'Comunidade' },
+    { href: '/eventos', label: 'Eventos' },
+    { href: '/seguranca', label: 'Segurança' },
+    { href: '/recursos', label: 'Recursos' },
+    { href: '/contato', label: 'Contato' },
+  ];
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-trans-pink/20">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-trans"></div>
-            <span className="text-2xl font-bold bg-gradient-trans bg-clip-text text-transparent">Transcare</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {menuItems.map(item => <Link key={item.label} to={item.href} className="flex items-center space-x-1 text-gray-600 hover:text-trans-purple transition-colors duration-200">
-                {item.icon && <item.icon className="w-4 h-4" />}
-                <span>{item.label}</span>
-              </Link>)}
-          </nav>
-
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline" className="border-trans-pink text-trans-purple hover:bg-trans-pink/10">
-              Entrar
-            </Button>
-            <Button className="bg-gradient-trans hover:opacity-90 text-white">
-              <User className="w-4 h-4 mr-2" />
-              Criar Conta
-            </Button>
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-trans rounded-full flex items-center justify-center">
+              <Heart className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-bold bg-gradient-trans bg-clip-text text-transparent">
+              TransCare
+            </span>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="w-6 h-6 text-trans-purple" /> : <Menu className="w-6 h-6 text-trans-purple" />}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-gray-700 hover:text-trans-purple transition-colors duration-200"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Auth Section */}
+          <div className="hidden md:flex items-center space-x-4">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span className="max-w-32 truncate">
+                      {user.user_metadata?.full_name || user.email}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/perfil')}>
+                    <User className="w-4 h-4 mr-2" />
+                    Meu Perfil
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sair
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button 
+                onClick={() => navigate('/auth')}
+                className="bg-gradient-trans text-white"
+              >
+                Entrar
+              </Button>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <X className="w-6 h-6 text-gray-700" />
+            ) : (
+              <Menu className="w-6 h-6 text-gray-700" />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && <nav className="md:hidden mt-4 pb-4 border-t border-trans-pink/20">
-            <div className="flex flex-col space-y-4 mt-4">
-              {menuItems.map(item => <Link key={item.label} to={item.href} className="flex items-center space-x-2 text-gray-600 hover:text-trans-purple transition-colors" onClick={() => setIsMenuOpen(false)}>
-                  {item.icon && <item.icon className="w-4 h-4" />}
-                  <span>{item.label}</span>
-                </Link>)}
-              <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="border-trans-pink text-trans-purple">
-                  Entrar
-                </Button>
-                <Button className="bg-gradient-trans text-white">
-                  Criar Conta
-                </Button>
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-trans-pink/20">
+            <nav className="flex flex-col space-y-4">
+              {menuItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="text-gray-700 hover:text-trans-purple transition-colors duration-200"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <div className="pt-4 border-t border-trans-pink/20">
+                {user ? (
+                  <div className="space-y-2">
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        navigate('/perfil');
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full justify-start"
+                    >
+                      <User className="w-4 h-4 mr-2" />
+                      Meu Perfil
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        handleSignOut();
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full justify-start"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sair
+                    </Button>
+                  </div>
+                ) : (
+                  <Button 
+                    onClick={() => {
+                      navigate('/auth');
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full bg-gradient-trans text-white"
+                  >
+                    Entrar
+                  </Button>
+                )}
               </div>
-            </div>
-          </nav>}
+            </nav>
+          </div>
+        )}
       </div>
-    </header>;
+    </header>
+  );
 };
+
 export default Header;
