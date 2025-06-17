@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Github, BookOpen, ExternalLink, Code, Heart } from 'lucide-react';
+import { Github, BookOpen, ExternalLink, Code, Heart, ArrowRight, Sparkles } from 'lucide-react';
 
 const ResourcesSection = () => {
   const resources = [
@@ -11,7 +11,8 @@ const ResourcesSection = () => {
       href: "https://github.com/transcare/website",
       buttonText: "Ver no GitHub",
       color: "bg-gray-900 hover:bg-gray-800",
-      iconColor: "text-white"
+      iconColor: "text-white",
+      delay: "delay-200"
     },
     {
       title: "Documentação",
@@ -20,7 +21,8 @@ const ResourcesSection = () => {
       href: "https://docs.transcare.com",
       buttonText: "Acessar Docs",
       color: "bg-trans-blue hover:bg-trans-blue/80",
-      iconColor: "text-white"
+      iconColor: "text-white",
+      delay: "delay-300"
     },
     {
       title: "Como Contribuir",
@@ -29,16 +31,27 @@ const ResourcesSection = () => {
       href: "#contribuir",
       buttonText: "Contribuir",
       color: "bg-trans-pink hover:bg-trans-pink/80",
-      iconColor: "text-white"
+      iconColor: "text-white",
+      delay: "delay-400"
     }
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20">
-      <div className="container mx-auto px-4">
+    <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20 overflow-hidden">
+      <div className="container mx-auto px-4 relative">
+        {/* Floating background elements */}
+        <div className="absolute top-10 right-10 w-24 h-24 bg-trans-blue/5 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-32 h-32 bg-trans-pink/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">
+            <div className="flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-trans-purple mr-2 animate-pulse" />
+              <span className="text-sm font-medium text-trans-purple bg-trans-purple/10 px-3 py-1 rounded-full">
+                Open Source & Gratuito
+              </span>
+            </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-trans bg-clip-text text-transparent leading-tight">
               Recursos & Links
             </h1>
@@ -52,11 +65,11 @@ const ResourcesSection = () => {
             {resources.map((resource, index) => (
               <div 
                 key={index} 
-                className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-lg transition-all duration-300 animate-fade-in text-center"
+                className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${resource.delay} text-center group hover:bg-white/80`}
               >
                 <div className="mb-6">
-                  <div className={`w-16 h-16 ${resource.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                    <resource.icon className={`w-8 h-8 ${resource.iconColor}`} />
+                  <div className={`w-16 h-16 ${resource.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <resource.icon className={`w-8 h-8 ${resource.iconColor} group-hover:rotate-12 transition-transform duration-300`} />
                   </div>
                   <h3 className="text-2xl font-semibold text-gray-800 mb-3">
                     {resource.title}
@@ -68,20 +81,22 @@ const ResourcesSection = () => {
                 
                 <Button 
                   size="lg" 
-                  className={`${resource.color} text-white px-6 py-3 w-full`}
+                  className={`${resource.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`}
                   onClick={() => window.open(resource.href, '_blank')}
                 >
                   {resource.buttonText}
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
                 </Button>
               </div>
             ))}
           </div>
 
           {/* Developer Section */}
-          <div className="bg-gradient-to-r from-trans-blue/10 to-trans-purple/10 rounded-2xl p-8 mb-16 border border-white/20">
+          <div className="bg-gradient-to-r from-trans-blue/10 to-trans-purple/10 rounded-2xl p-8 mb-16 border border-white/20 hover:shadow-lg transition-all duration-300 animate-fade-in delay-500">
             <div className="text-center">
-              <Code className="w-12 h-12 text-trans-purple mx-auto mb-4" />
+              <div className="w-16 h-16 bg-trans-purple/10 rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
+                <Code className="w-8 h-8 text-trans-purple" />
+              </div>
               <h2 className="text-3xl font-bold mb-4 text-gray-800">
                 Para Desenvolvedores
               </h2>
@@ -94,26 +109,30 @@ const ResourcesSection = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-trans-purple text-trans-purple hover:bg-trans-purple/10"
+                  className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 transition-all duration-300 group"
                   onClick={() => window.open('https://github.com/transcare/website/issues', '_blank')}
                 >
-                  <Github className="w-5 h-5 mr-2" />
+                  <Github className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                   Ver Issues
                 </Button>
                 <Button 
                   size="lg" 
-                  className="bg-gradient-trans hover:opacity-90 text-white"
+                  className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white transition-all duration-300 shadow-md hover:shadow-lg group"
                   onClick={() => window.open('https://github.com/transcare/website/pulls', '_blank')}
                 >
-                  <Code className="w-5 h-5 mr-2" />
+                  <Code className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
                   Pull Requests
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
               </div>
             </div>
           </div>
 
           {/* Community Section */}
-          <div className="text-center">
+          <div className="text-center animate-fade-in delay-600">
+            <div className="w-16 h-16 bg-gradient-trans rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform duration-300 shadow-lg">
+              <Heart className="w-8 h-8 text-white" />
+            </div>
             <h2 className="text-3xl font-bold mb-6 text-gray-800">
               Feito com ❤️ pela comunidade trans
             </h2>
@@ -124,11 +143,12 @@ const ResourcesSection = () => {
             
             <Button 
               size="lg" 
-              className="bg-gradient-trans hover:opacity-90 text-white px-8 py-4"
+              className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white px-8 py-4 transition-all duration-300 shadow-lg hover:shadow-xl group"
               onClick={() => window.location.href = '/comunidade'}
             >
-              <Heart className="w-5 h-5 mr-2" />
+              <Heart className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
               Conhecer a Comunidade
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
           </div>
         </div>
