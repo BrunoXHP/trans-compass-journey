@@ -1,10 +1,30 @@
-
 import { Calendar, MapPin, Users, Clock, Plus, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const EventsSection = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleEventAction = () => {
+    if (user) {
+      navigate('/eventos');
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  const handleCreateEvent = () => {
+    if (user) {
+      navigate('/eventos');
+    } else {
+      navigate('/auth');
+    }
+  };
+
   const upcomingEvents = [
     {
       id: 1,
@@ -91,7 +111,7 @@ const EventsSection = () => {
                       <Calendar className="w-6 h-6" />
                       <span>Próximos Eventos</span>
                     </CardTitle>
-                    <Button size="sm" className="bg-gradient-trans text-white">
+                    <Button size="sm" className="bg-gradient-trans text-white" onClick={handleCreateEvent}>
                       <Plus className="w-4 h-4 mr-1" />
                       Criar Evento
                     </Button>
@@ -136,10 +156,18 @@ const EventsSection = () => {
                       </div>
                       
                       <div className="flex items-center space-x-3">
-                        <Button className="bg-gradient-trans text-white flex-1">
+                        <Button 
+                          className="bg-gradient-trans text-white flex-1"
+                          onClick={handleEventAction}
+                        >
                           Participar do Evento
                         </Button>
-                        <Button variant="outline" size="sm" className="border-trans-purple text-trans-purple">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-trans-purple text-trans-purple"
+                          onClick={handleEventAction}
+                        >
                           <ExternalLink className="w-4 h-4" />
                         </Button>
                       </div>
@@ -151,7 +179,6 @@ const EventsSection = () => {
 
             {/* Sidebar com eventos passados e estatísticas */}
             <div className="space-y-6">
-              {/* Eventos Passados */}
               <Card className="border-trans-purple/20 bg-white/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2 text-trans-purple">
@@ -174,13 +201,16 @@ const EventsSection = () => {
                     </div>
                   ))}
                   
-                  <Button variant="outline" className="w-full border-trans-purple text-trans-purple hover:bg-trans-purple/10">
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-trans-purple text-trans-purple hover:bg-trans-purple/10"
+                    onClick={handleEventAction}
+                  >
                     Ver Histórico Completo
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Estatísticas */}
               <Card className="border-trans-pink/20 bg-white/80 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="text-center space-y-4">
@@ -196,7 +226,12 @@ const EventsSection = () => {
                         <div className="text-xs text-gray-600">Confirmados</div>
                       </div>
                     </div>
-                    <Button size="sm" variant="outline" className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10"
+                      onClick={handleEventAction}
+                    >
                       Meu Histórico
                     </Button>
                   </div>
@@ -211,7 +246,12 @@ const EventsSection = () => {
             <p className="text-lg mb-6 opacity-90">
               Ajude a fortalecer nossa comunidade criando encontros, rodas de conversa ou ações educativas
             </p>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-trans-purple">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-trans-purple"
+              onClick={handleCreateEvent}
+            >
               Criar Meu Evento
             </Button>
           </div>

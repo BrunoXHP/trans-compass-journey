@@ -1,11 +1,68 @@
-
 import { Mail, MessageCircle, Phone, AlertTriangle, Clock, Send } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 const ContactSection = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    privacy: false
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.privacy) {
+      toast({
+        title: "Erro",
+        description: "Você deve aceitar nossa política de privacidade para continuar.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Simulate form submission
+    toast({
+      title: "Mensagem enviada!",
+      description: "Recebemos sua mensagem e responderemos em breve.",
+    });
+
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+      privacy: false
+    });
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleWhatsAppContact = () => {
+    window.open('https://wa.me/5511999999999', '_blank');
+  };
+
+  const handleEmailContact = () => {
+    window.open('mailto:suporte@transcuidado.com.br', '_blank');
+  };
+
+  const handleUrgentReport = () => {
+    toast({
+      title: "Central de Denúncias",
+      description: "Redirecionando para formulário de denúncia urgente...",
+    });
+  };
+
   const contactOptions = [
     {
       icon: Mail,
@@ -13,7 +70,8 @@ const ContactSection = () => {
       description: "Para dúvidas gerais e suporte técnico",
       contact: "suporte@transcuidado.com.br",
       responseTime: "Resposta em até 24h",
-      color: "bg-trans-blue/20 border-trans-blue/30"
+      color: "bg-trans-blue/20 border-trans-blue/30",
+      action: handleEmailContact
     },
     {
       icon: MessageCircle,
@@ -21,7 +79,8 @@ const ContactSection = () => {
       description: "Tire dúvidas com outros membros",
       contact: "Acesse o fórum",
       responseTime: "Resposta imediata",
-      color: "bg-trans-pink/20 border-trans-pink/30"
+      color: "bg-trans-pink/20 border-trans-pink/30",
+      action: () => window.location.href = '/forum'
     },
     {
       icon: Phone,
@@ -29,7 +88,8 @@ const ContactSection = () => {
       description: "Para situações urgentes relacionadas à segurança",
       contact: "+55 (11) 9999-9999",
       responseTime: "24/7",
-      color: "bg-trans-purple/20 border-trans-purple/30"
+      color: "bg-trans-purple/20 border-trans-purple/30",
+      action: handleWhatsAppContact
     }
   ];
 
@@ -66,7 +126,6 @@ const ContactSection = () => {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 mb-16">
-            {/* Contact Options */}
             {contactOptions.map((option, index) => (
               <Card key={index} className={`${option.color} hover:shadow-lg transition-all duration-300`}>
                 <CardContent className="p-6 text-center">
@@ -74,11 +133,15 @@ const ContactSection = () => {
                   <h3 className="font-semibold text-gray-800 mb-2">{option.title}</h3>
                   <p className="text-sm text-gray-600 mb-3">{option.description}</p>
                   <div className="text-sm font-medium text-trans-purple mb-2">{option.contact}</div>
-                  <div className="text-xs text-gray-500 flex items-center justify-center space-x-1">
+                  <div className="text-xs text-gray-500 flex items-center justify-center space-x-1 mb-4">
                     <Clock className="w-3 h-3" />
                     <span>{option.responseTime}</span>
                   </div>
-                  <Button size="sm" className="mt-4 bg-gradient-trans text-white">
+                  <Button 
+                    size="sm" 
+                    className="bg-gradient-trans text-white"
+                    onClick={option.action}
+                  >
                     Entrar em Contato
                   </Button>
                 </CardContent>
@@ -95,50 +158,86 @@ const ContactSection = () => {
                   <span>Envie sua Mensagem</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Nome</label>
-                    <Input placeholder="Seu nome ou nome social" className="border-trans-pink/30" />
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Nome</label>
+                      <Input 
+                        placeholder="Seu nome ou nome social" 
+                        className="border-trans-pink/30"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                      <Input 
+                        type="email" 
+                        placeholder="seu@email.com" 
+                        className="border-trans-pink/30"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        required
+                      />
+                    </div>
                   </div>
+                  
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
-                    <Input type="email" placeholder="seu@email.com" className="border-trans-pink/30" />
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Assunto</label>
+                    <Input 
+                      placeholder="Sobre o que você gostaria de falar?" 
+                      className="border-trans-pink/30"
+                      value={formData.subject}
+                      onChange={(e) => handleInputChange('subject', e.target.value)}
+                      required
+                    />
                   </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Assunto</label>
-                  <Input placeholder="Sobre o que você gostaria de falar?" className="border-trans-pink/30" />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Mensagem</label>
-                  <Textarea 
-                    rows={5} 
-                    placeholder="Descreva sua dúvida, sugestão ou preocupação..."
-                    className="border-trans-pink/30"
-                  />
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <input type="checkbox" id="privacy" className="mt-1" />
-                  <label htmlFor="privacy" className="text-sm text-gray-600">
-                    Concordo com o tratamento dos meus dados conforme nossa 
-                    <a href="#" className="text-trans-purple hover:underline ml-1">política de privacidade</a>
-                  </label>
-                </div>
-                
-                <Button className="w-full bg-gradient-trans text-white">
-                  <Send className="w-4 h-4 mr-2" />
-                  Enviar Mensagem
-                </Button>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Mensagem</label>
+                    <Textarea 
+                      rows={5} 
+                      placeholder="Descreva sua dúvida, sugestão ou preocupação..."
+                      className="border-trans-pink/30"
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      required
+                    />
+                  </div>
+                  
+                  <div className="flex items-start space-x-2">
+                    <input 
+                      type="checkbox" 
+                      id="privacy" 
+                      className="mt-1"
+                      checked={formData.privacy}
+                      onChange={(e) => handleInputChange('privacy', e.target.checked)}
+                      required
+                    />
+                    <label htmlFor="privacy" className="text-sm text-gray-600">
+                      Concordo com o tratamento dos meus dados conforme nossa 
+                      <button 
+                        type="button"
+                        className="text-trans-purple hover:underline ml-1"
+                        onClick={() => window.open('#', '_blank')}
+                      >
+                        política de privacidade
+                      </button>
+                    </label>
+                  </div>
+                  
+                  <Button type="submit" className="w-full bg-gradient-trans text-white">
+                    <Send className="w-4 h-4 mr-2" />
+                    Enviar Mensagem
+                  </Button>
+                </form>
               </CardContent>
             </Card>
 
             {/* FAQ and Report */}
             <div className="space-y-6">
-              {/* FAQ */}
               <Card className="border-trans-blue/20 bg-white/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2 text-trans-purple">
@@ -154,7 +253,11 @@ const ContactSection = () => {
                     </div>
                   ))}
                   
-                  <Button variant="outline" className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10">
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10"
+                    onClick={() => toast({ title: "FAQ", description: "Redirecionando para FAQ completo..." })}
+                  >
                     Ver Todas as Perguntas
                   </Button>
                 </CardContent>
@@ -177,11 +280,18 @@ const ContactSection = () => {
                   </p>
                   
                   <div className="space-y-3">
-                    <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
+                    <Button 
+                      className="w-full bg-red-500 hover:bg-red-600 text-white"
+                      onClick={handleUrgentReport}
+                    >
                       <AlertTriangle className="w-4 h-4 mr-2" />
                       Fazer Denúncia Urgente
                     </Button>
-                    <Button variant="outline" className="w-full border-red-300 text-red-600 hover:bg-red-50">
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-red-300 text-red-600 hover:bg-red-50"
+                      onClick={handleUrgentReport}
+                    >
                       Central de Denúncias
                     </Button>
                   </div>
@@ -197,11 +307,21 @@ const ContactSection = () => {
               Se você está em uma situação de emergência ou risco, entre em contato conosco imediatamente
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-trans-purple">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-trans-purple"
+                onClick={handleWhatsAppContact}
+              >
                 <Phone className="w-5 h-5 mr-2" />
                 WhatsApp: (11) 9999-9999
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-trans-purple">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-trans-purple"
+                onClick={() => window.open('mailto:urgencia@transcuidado.com.br', '_blank')}
+              >
                 <Mail className="w-5 h-5 mr-2" />
                 urgencia@transcuidado.com.br
               </Button>

@@ -1,9 +1,25 @@
-
 import { Shield, Lock, Eye, Users, FileText, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const SecuritySection = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handlePrivacySettings = () => {
+    if (user) {
+      navigate('/perfil');
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  const handleReport = () => {
+    navigate('/contato');
+  };
+
   const securityFeatures = [
     {
       icon: Lock,
@@ -63,7 +79,6 @@ const SecuritySection = () => {
             </p>
           </div>
 
-          {/* Security Features */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {securityFeatures.map((feature, index) => (
               <Card key={index} className="border-trans-purple/20 bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300">
@@ -101,7 +116,10 @@ const SecuritySection = () => {
                   </div>
                 ))}
                 
-                <Button className="w-full bg-gradient-trans text-white">
+                <Button 
+                  className="w-full bg-gradient-trans text-white"
+                  onClick={handlePrivacySettings}
+                >
                   Gerenciar Configurações de Privacidade
                 </Button>
               </CardContent>
@@ -150,7 +168,12 @@ const SecuritySection = () => {
                   <p className="text-sm text-gray-600 mb-3">
                     Se você presenciar qualquer comportamento que viole nossas diretrizes, denuncie imediatamente.
                   </p>
-                  <Button size="sm" variant="outline" className="border-trans-purple text-trans-purple hover:bg-trans-purple/10">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="border-trans-purple text-trans-purple hover:bg-trans-purple/10"
+                    onClick={handleReport}
+                  >
                     Central de Denúncias
                   </Button>
                 </div>
@@ -158,7 +181,6 @@ const SecuritySection = () => {
             </Card>
           </div>
 
-          {/* Security Certifications */}
           <div className="mt-16 bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-purple/20">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-semibold mb-4 text-trans-purple">Certificações e Conformidade</h3>

@@ -1,10 +1,30 @@
-
 import { Users, MessageCircle, Heart, Shield, MapPin, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const CommunitySection = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleForumNavigation = () => {
+    if (user) {
+      navigate('/forum');
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  const handleJoinGroup = () => {
+    if (user) {
+      navigate('/forum');
+    } else {
+      navigate('/auth');
+    }
+  };
+
   const forumPosts = [
     {
       id: 1,
@@ -90,6 +110,7 @@ const CommunitySection = () => {
                     <div 
                       key={post.id} 
                       className="p-4 rounded-lg border border-trans-pink/20 bg-gradient-to-r from-white to-trans-lavender/10 hover:shadow-md transition-all duration-200 cursor-pointer"
+                      onClick={handleForumNavigation}
                     >
                       <div className="flex items-start space-x-3">
                         <Avatar className="w-10 h-10">
@@ -125,7 +146,10 @@ const CommunitySection = () => {
                     </div>
                   ))}
                   
-                  <Button className="w-full bg-gradient-trans text-white">
+                  <Button 
+                    onClick={handleForumNavigation}
+                    className="w-full bg-gradient-trans text-white"
+                  >
                     Ver Todas as Discussões
                   </Button>
                 </CardContent>
@@ -154,20 +178,28 @@ const CommunitySection = () => {
                           <Users className="w-3 h-3" />
                           <span>{group.members} membros</span>
                         </span>
-                        <Button size="sm" variant="outline" className="text-xs">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-xs"
+                          onClick={handleJoinGroup}
+                        >
                           Participar
                         </Button>
                       </div>
                     </div>
                   ))}
                   
-                  <Button variant="outline" className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10">
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10"
+                    onClick={handleForumNavigation}
+                  >
                     Ver Todos os Grupos
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Community Stats */}
               <Card className="mt-6 border-trans-purple/20 bg-white/80 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="text-center space-y-4">
