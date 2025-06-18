@@ -1,8 +1,29 @@
 
 import { Button } from '@/components/ui/button';
 import { Calendar, Users, User, ArrowRight, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleStartJourney = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  const handleExploreCommunity = () => {
+    if (user) {
+      navigate('/forum');
+    } else {
+      navigate('/comunidade');
+    }
+  };
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 pt-20 overflow-hidden">
       <div className="container mx-auto px-4 text-center relative">
@@ -29,15 +50,17 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fade-in delay-500">
             <Button 
               size="lg" 
+              onClick={handleStartJourney}
               className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white px-8 py-4 text-lg transition-all duration-300 shadow-lg hover:shadow-xl group"
             >
               <User className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-              Começar Minha Jornada
+              {user ? 'Acessar Dashboard' : 'Começar Minha Jornada'}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
+              onClick={handleExploreCommunity}
               className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 px-8 py-4 text-lg transition-all duration-300 shadow-md hover:shadow-lg group"
             >
               <Users className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />

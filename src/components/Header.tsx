@@ -32,6 +32,11 @@ const Header = () => {
     { href: '/contato', label: 'Contato' },
   ];
 
+  const handleMenuItemClick = (href: string) => {
+    navigate(href);
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-trans-pink/20">
       <div className="container mx-auto px-4">
@@ -49,13 +54,13 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {menuItems.map((item) => (
-              <a
+              <button
                 key={item.href}
-                href={item.href}
+                onClick={() => navigate(item.href)}
                 className="text-gray-700 hover:text-trans-purple transition-colors duration-200"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -125,14 +130,13 @@ const Header = () => {
           <div className="md:hidden py-4 border-t border-trans-pink/20">
             <nav className="flex flex-col space-y-4">
               {menuItems.map((item) => (
-                <a
+                <button
                   key={item.href}
-                  href={item.href}
-                  className="text-gray-700 hover:text-trans-purple transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => handleMenuItemClick(item.href)}
+                  className="text-gray-700 hover:text-trans-purple transition-colors duration-200 text-left"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
               <div className="pt-4 border-t border-trans-pink/20">
                 {user ? (
