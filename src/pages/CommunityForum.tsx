@@ -26,7 +26,7 @@ interface Post {
   comments_count: number;
   created_at: string;
   user_id: string;
-  profiles: {
+  user_profile?: {
     full_name: string | null;
     username: string | null;
   } | null;
@@ -54,28 +54,54 @@ const CommunityForum = () => {
     try {
       let query = supabase
         .from('community_posts')
-        .select(`
-          *,
-          profiles(
-            full_name,
-            username
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (selectedCategory !== 'all') {
         query = query.eq('category', selectedCategory);
       }
 
-      const { data, error } = await query;
+      const { data: postsData, error: postsError } = await query;
 
-      if (error) {
-        console.error('Error fetching posts:', error);
+      if (postsError) {
+        console.error('Error fetching posts:', postsError);
         toast.error('Erro ao carregar posts');
         return;
       }
 
-      setPosts(data || []);
+      if (!postsData) {
+        setPosts([]);
+        return;
+      }
+
+      // Fetch profiles separately for non-anonymous posts
+      const userIds = postsData
+        .filter(post => !post.is_anonymous)
+        .map(post => post.user_id);
+
+      let profilesMap: Record<string, any> = {};
+
+      if (userIds.length > 0) {
+        const { data: profilesData, error: profilesError } = await supabase
+          .from('profiles')
+          .select('id, full_name, username')
+          .in('id', userIds);
+
+        if (!profilesError && profilesData) {
+          profilesMap = profilesData.reduce((acc, profile) => {
+            acc[profile.id] = profile;
+            return acc;
+          }, {} as Record<string, any>);
+        }
+      }
+
+      // Combine posts with profiles
+      const postsWithProfiles = postsData.map(post => ({
+        ...post,
+        user_profile: post.is_anonymous ? null : profilesMap[post.user_id] || null
+      }));
+
+      setPosts(postsWithProfiles);
     } catch (error) {
       console.error('Error in fetchPosts:', error);
       toast.error('Erro ao carregar posts');
@@ -312,7 +338,7 @@ const CommunityForum = () => {
                           <span>
                             Por: {post.is_anonymous 
                               ? 'Anônimo' 
-                              : post.profiles?.full_name || post.profiles?.username || 'Usuário'
+                              : post.user_profile?.full_name || post.user_profile?.username || 'Usuário'
                             }
                           </span>
                           <span className="flex items-center">
