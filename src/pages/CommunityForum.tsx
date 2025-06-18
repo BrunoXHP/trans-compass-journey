@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -22,15 +21,15 @@ interface Post {
   content: string;
   category: string;
   is_anonymous: boolean;
-  tags: string[];
+  tags: string[] | null;
   likes_count: number;
   comments_count: number;
   created_at: string;
   user_id: string;
-  profiles?: {
-    full_name: string;
-    username: string;
-  };
+  profiles: {
+    full_name: string | null;
+    username: string | null;
+  } | null;
 }
 
 const CommunityForum = () => {
@@ -57,7 +56,7 @@ const CommunityForum = () => {
         .from('community_posts')
         .select(`
           *,
-          profiles:user_id (
+          profiles!inner(
             full_name,
             username
           )
@@ -70,9 +69,15 @@ const CommunityForum = () => {
 
       const { data, error } = await query;
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching posts:', error);
+        toast.error('Erro ao carregar posts');
+        return;
+      }
+
       setPosts(data || []);
     } catch (error) {
+      console.error('Error in fetchPosts:', error);
       toast.error('Erro ao carregar posts');
     } finally {
       setLoading(false);
