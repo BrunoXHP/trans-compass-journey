@@ -56,7 +56,7 @@ const CommunityForum = () => {
         .from('community_posts')
         .select(`
           *,
-          profiles!inner(
+          profiles(
             full_name,
             username
           )
