@@ -5,7 +5,7 @@ const LinksSection = () => {
     title: "Código no GitHub",
     description: "Acesse o código-fonte completo do projeto, contribua com melhorias e acompanhe as atualizações.",
     icon: Github,
-    href: "https://github.com/transcare/website",
+    href: "https://github.com/BrunoXHP/trans-compass-journey",
     buttonText: "Ver no GitHub",
     color: "bg-gray-900 hover:bg-gray-800",
     iconColor: "text-white",
@@ -29,6 +29,7 @@ const LinksSection = () => {
     iconColor: "text-white",
     delay: "delay-400"
   }];
+  
   return <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20 overflow-hidden">
       <div className="container mx-auto px-4 relative">
         {/* Floating background elements */}
@@ -89,11 +90,11 @@ const LinksSection = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="outline" className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 transition-all duration-300 group" onClick={() => window.open('https://github.com/transcare/website/issues', '_blank')}>
+                <Button size="lg" variant="outline" className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 transition-all duration-300 group" onClick={() => window.open('https://github.com/BrunoXHP/trans-compass-journey/issues', '_blank')}>
                   <Github className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                   Ver Issues
                 </Button>
-                <Button size="lg" className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white transition-all duration-300 shadow-md hover:shadow-lg group" onClick={() => window.open('https://github.com/transcare/website/pulls', '_blank')}>
+                <Button size="lg" className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white transition-all duration-300 shadow-md hover:shadow-lg group" onClick={() => window.open('https://github.com/BrunoXHP/trans-compass-journey/pulls', '_blank')}>
                   <Code className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
                   Pull Requests
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
