@@ -1,9 +1,7 @@
 import { Heart, Instagram, Twitter, Facebook, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
 const Footer = () => {
   const navigate = useNavigate();
-
   const footerSections = [{
     title: "Plataforma",
     links: [{
@@ -50,7 +48,6 @@ const Footer = () => {
       href: "/seguranca"
     }]
   }];
-
   const socialLinks = [{
     icon: Instagram,
     href: "#",
@@ -68,7 +65,6 @@ const Footer = () => {
     href: "#",
     label: "E-mail"
   }];
-
   const handleLinkClick = (href: string) => {
     if (href.startsWith('#')) {
       // Handle anchor links or external links
@@ -76,9 +72,7 @@ const Footer = () => {
     }
     navigate(href);
   };
-
-  return (
-    <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+  return <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           {/* Main Footer Content */}
@@ -95,37 +89,23 @@ const Footer = () => {
               
               {/* Social Links */}
               <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <button
-                    key={index}
-                    onClick={() => window.open(social.href, '_blank')}
-                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-trans-pink/30 transition-colors duration-200"
-                    aria-label={social.label}
-                  >
+                {socialLinks.map((social, index) => <button key={index} onClick={() => window.open(social.href, '_blank')} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-trans-pink/30 transition-colors duration-200" aria-label={social.label}>
                     <social.icon className="w-5 h-5" />
-                  </button>
-                ))}
+                  </button>)}
               </div>
             </div>
 
             {/* Footer Sections */}
-            {footerSections.map((section, index) => (
-              <div key={index}>
+            {footerSections.map((section, index) => <div key={index}>
                 <h3 className="font-semibold text-lg mb-4 text-trans-pink">{section.title}</h3>
                 <ul className="space-y-3">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <button
-                        onClick={() => handleLinkClick(link.href)}
-                        className="text-gray-300 hover:text-trans-blue transition-colors duration-200 text-sm text-left"
-                      >
+                  {section.links.map((link, linkIndex) => <li key={linkIndex}>
+                      <button onClick={() => handleLinkClick(link.href)} className="text-gray-300 hover:text-trans-blue transition-colors duration-200 text-sm text-left">
                         {link.label}
                       </button>
-                    </li>
-                  ))}
+                    </li>)}
                 </ul>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Mission Statement */}
@@ -149,7 +129,7 @@ const Footer = () => {
               <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <span>Feito com</span>
                 <Heart className="w-4 h-4 text-trans-pink fill-current" />
-                <span>pela comunidade trans</span>
+                <span>para comunidade trans</span>
               </div>
               
               <div className="text-sm text-gray-400">
@@ -183,8 +163,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
