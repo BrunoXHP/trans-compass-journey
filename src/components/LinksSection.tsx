@@ -1,43 +1,35 @@
-
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code, Heart, ArrowRight, Sparkles, LinkIcon } from 'lucide-react';
-
 const LinksSection = () => {
-  const links = [
-    {
-      title: "Código no GitHub",
-      description: "Acesse o código-fonte completo do projeto, contribua com melhorias e acompanhe as atualizações.",
-      icon: Github,
-      href: "https://github.com/transcare/website",
-      buttonText: "Ver no GitHub",
-      color: "bg-gray-900 hover:bg-gray-800",
-      iconColor: "text-white",
-      delay: "delay-200"
-    },
-    {
-      title: "Documentação",
-      description: "Guias completos sobre como usar a plataforma, APIs disponíveis e recursos para desenvolvedores.",
-      icon: Code,
-      href: "https://docs.transcare.com",
-      buttonText: "Acessar Docs",
-      color: "bg-trans-blue hover:bg-trans-blue/80",
-      iconColor: "text-white",
-      delay: "delay-300"
-    },
-    {
-      title: "Como Contribuir",
-      description: "Saiba como você pode ajudar a melhorar nosso site e apoiar a comunidade trans brasileira.",
-      icon: Heart,
-      href: "#contribuir",
-      buttonText: "Contribuir",
-      color: "bg-trans-pink hover:bg-trans-pink/80",
-      iconColor: "text-white",
-      delay: "delay-400"
-    }
-  ];
-
-  return (
-    <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20 overflow-hidden">
+  const links = [{
+    title: "Código no GitHub",
+    description: "Acesse o código-fonte completo do projeto, contribua com melhorias e acompanhe as atualizações.",
+    icon: Github,
+    href: "https://github.com/transcare/website",
+    buttonText: "Ver no GitHub",
+    color: "bg-gray-900 hover:bg-gray-800",
+    iconColor: "text-white",
+    delay: "delay-200"
+  }, {
+    title: "Documentação",
+    description: "Guias completos sobre como usar a plataforma, APIs disponíveis e recursos para desenvolvedores.",
+    icon: Code,
+    href: "https://docs.transcare.com",
+    buttonText: "Acessar Docs",
+    color: "bg-trans-blue hover:bg-trans-blue/80",
+    iconColor: "text-white",
+    delay: "delay-300"
+  }, {
+    title: "Como Contribuir",
+    description: "Saiba como você pode ajudar a melhorar nosso site e apoiar a comunidade trans brasileira.",
+    icon: Heart,
+    href: "#contribuir",
+    buttonText: "Contribuir",
+    color: "bg-trans-pink hover:bg-trans-pink/80",
+    iconColor: "text-white",
+    delay: "delay-400"
+  }];
+  return <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20 overflow-hidden">
       <div className="container mx-auto px-4 relative">
         {/* Floating background elements */}
         <div className="absolute top-10 right-10 w-24 h-24 bg-trans-blue/5 rounded-full blur-2xl animate-pulse"></div>
@@ -62,11 +54,7 @@ const LinksSection = () => {
 
           {/* Link Cards */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {links.map((link, index) => (
-              <div 
-                key={index} 
-                className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${link.delay} text-center group hover:bg-white/80`}
-              >
+            {links.map((link, index) => <div key={index} className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${link.delay} text-center group hover:bg-white/80`}>
                 <div className="mb-6">
                   <div className={`w-16 h-16 ${link.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                     <link.icon className={`w-8 h-8 ${link.iconColor} group-hover:rotate-12 transition-transform duration-300`} />
@@ -79,16 +67,11 @@ const LinksSection = () => {
                   </p>
                 </div>
                 
-                <Button 
-                  size="lg" 
-                  className={`${link.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`}
-                  onClick={() => window.open(link.href, '_blank')}
-                >
+                <Button size="lg" className={`${link.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`} onClick={() => window.open(link.href, '_blank')}>
                   {link.buttonText}
                   <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
                 </Button>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Developer Section */}
@@ -106,20 +89,11 @@ const LinksSection = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 transition-all duration-300 group"
-                  onClick={() => window.open('https://github.com/transcare/website/issues', '_blank')}
-                >
+                <Button size="lg" variant="outline" className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 transition-all duration-300 group" onClick={() => window.open('https://github.com/transcare/website/issues', '_blank')}>
                   <Github className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                   Ver Issues
                 </Button>
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white transition-all duration-300 shadow-md hover:shadow-lg group"
-                  onClick={() => window.open('https://github.com/transcare/website/pulls', '_blank')}
-                >
+                <Button size="lg" className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white transition-all duration-300 shadow-md hover:shadow-lg group" onClick={() => window.open('https://github.com/transcare/website/pulls', '_blank')}>
                   <Code className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
                   Pull Requests
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -133,19 +107,13 @@ const LinksSection = () => {
             <div className="w-16 h-16 bg-gradient-trans rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform duration-300 shadow-lg">
               <Heart className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">
-              Feito com ❤️ pela comunidade trans
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Feito com ❤️ para comunidade trans</h2>
             <p className="text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
               Este projeto é desenvolvido por e para a comunidade trans, priorizando sempre 
               a segurança, inclusão e bem-estar de todas as pessoas.
             </p>
             
-            <Button 
-              size="lg" 
-              className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white px-8 py-4 transition-all duration-300 shadow-lg hover:shadow-xl group"
-              onClick={() => window.location.href = '/comunidade'}
-            >
+            <Button size="lg" className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white px-8 py-4 transition-all duration-300 shadow-lg hover:shadow-xl group" onClick={() => window.location.href = '/comunidade'}>
               <Heart className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
               Conhecer a Comunidade
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -153,8 +121,6 @@ const LinksSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default LinksSection;
