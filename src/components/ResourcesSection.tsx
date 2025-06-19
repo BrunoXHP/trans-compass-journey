@@ -8,8 +8,8 @@ const ResourcesSection = () => {
       title: "Guia de Transição",
       description: "Material completo sobre o processo de transição de gênero, incluindo aspectos médicos, psicológicos e legais.",
       icon: BookOpen,
-      href: "/guias/transicao",
-      buttonText: "Acessar Guia",
+      href: "https://drive.google.com/file/d/1EivU8wifmu4bWExDZ-87-2ErYCL63JI1/view?usp=drive_link",
+      buttonText: "Baixar PDF",
       color: "bg-trans-blue hover:bg-trans-blue/80",
       iconColor: "text-white",
       delay: "delay-200"
