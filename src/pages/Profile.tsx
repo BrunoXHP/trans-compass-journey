@@ -4,13 +4,14 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AccountDeletionModal from '@/components/feedback/AccountDeletionModal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { User, Save, Edit } from 'lucide-react';
+import { User, Save, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Profile {
@@ -28,6 +29,7 @@ const Profile = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [formData, setFormData] = useState({
     full_name: '',
     username: '',
@@ -125,7 +127,7 @@ const Profile = () => {
               <CardTitle className="text-trans-purple">
                 {profile?.full_name || user?.email}
               </CardTitle>
-              <div className="flex justify-center">
+              <div className="flex justify-center space-x-2">
                 <Button
                   variant="outline"
                   onClick={() => setEditing(!editing)}
@@ -244,9 +246,42 @@ const Profile = () => {
               )}
             </CardContent>
           </Card>
+
+          {/* Zona de Perigo */}
+          <Card className="mt-6 border-red-200 bg-red-50/80 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-red-600 flex items-center space-x-2">
+                <Trash2 className="w-5 h-5" />
+                <span>Zona de Perigo</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-red-800 mb-2">Excluir Conta</h3>
+                  <p className="text-sm text-red-700 mb-4">
+                    Esta ação é irreversível. Todos os seus dados serão permanentemente excluídos.
+                  </p>
+                  <Button
+                    variant="destructive"
+                    onClick={() => setShowDeleteModal(true)}
+                    className="bg-red-600 hover:bg-red-700"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Excluir Minha Conta
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
       <Footer />
+
+      <AccountDeletionModal 
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+      />
     </div>
   );
 };

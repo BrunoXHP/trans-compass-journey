@@ -108,6 +108,7 @@ const CommunityForum = () => {
                   key={post.id}
                   post={post}
                   onLike={handleLike}
+                  onDelete={refetch}
                 />
               ))
             )}

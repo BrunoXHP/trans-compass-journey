@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import { useDeleteActions } from '@/hooks/useDeleteActions';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Pill, Plus, Clock, Calendar } from 'lucide-react';
+import { Pill, Plus, Clock, Calendar, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 
@@ -29,6 +29,7 @@ interface Medication {
 
 const Medications = () => {
   const { user } = useAuth();
+  const { deleteMedication } = useDeleteActions();
   const [medications, setMedications] = useState<Medication[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -117,6 +118,13 @@ const Medications = () => {
   const removeTimeSlot = (index: number) => {
     const newTimes = formData.schedule_times.filter((_, i) => i !== index);
     setFormData({ ...formData, schedule_times: newTimes });
+  };
+
+  const handleDelete = async (medicationId: string) => {
+    const success = await deleteMedication(medicationId);
+    if (success) {
+      fetchMedications();
+    }
   };
 
   if (loading) {
@@ -312,13 +320,23 @@ const Medications = () => {
                         </h3>
                         <p className="text-gray-600">{medication.dosage} - {medication.frequency}</p>
                       </div>
-                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                        medication.is_active 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {medication.is_active ? 'Ativa' : 'Inativa'}
-                      </span>
+                      <div className="flex items-center space-x-2">
+                        <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+                          medication.is_active 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {medication.is_active ? 'Ativa' : 'Inativa'}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDelete(medication.id)}
+                          className="text-red-600 hover:text-red-800 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
 
                     {medication.schedule_times && medication.schedule_times.length > 0 && (

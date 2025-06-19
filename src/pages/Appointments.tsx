@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import { useDeleteActions } from '@/hooks/useDeleteActions';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar, Plus, Clock, MapPin, User } from 'lucide-react';
+import { Calendar, Plus, Clock, MapPin, User, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -28,6 +28,7 @@ interface Appointment {
 
 const Appointments = () => {
   const { user } = useAuth();
+  const { deleteAppointment } = useDeleteActions();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -102,6 +103,13 @@ const Appointments = () => {
       case 'cancelado': return 'bg-red-100 text-red-800';
       case 'concluido': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const handleDelete = async (appointmentId: string) => {
+    const success = await deleteAppointment(appointmentId);
+    if (success) {
+      fetchAppointments();
     }
   };
 
@@ -255,9 +263,19 @@ const Appointments = () => {
                           {appointment.status}
                         </span>
                       </div>
-                      <span className="text-sm text-gray-500 capitalize">
-                        {appointment.appointment_type}
-                      </span>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm text-gray-500 capitalize">
+                          {appointment.appointment_type}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDelete(appointment.id)}
+                          className="text-red-600 hover:text-red-800 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">

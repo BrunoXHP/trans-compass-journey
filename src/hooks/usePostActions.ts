@@ -37,6 +37,27 @@ export const usePostActions = (refetchPosts: () => void) => {
     }
   };
 
+  const deletePost = async (postId: string) => {
+    if (!user) return false;
+
+    try {
+      const { error } = await supabase
+        .from('community_posts')
+        .delete()
+        .eq('id', postId)
+        .eq('user_id', user.id); // Garantir que só pode deletar próprios posts
+
+      if (error) throw error;
+
+      toast.success('Post excluído com sucesso!');
+      refetchPosts();
+      return true;
+    } catch (error) {
+      toast.error('Erro ao excluir post');
+      return false;
+    }
+  };
+
   const handleLike = async (postId: string) => {
     if (!user) return;
 
@@ -69,5 +90,5 @@ export const usePostActions = (refetchPosts: () => void) => {
     }
   };
 
-  return { createPost, handleLike };
+  return { createPost, deletePost, handleLike };
 };
