@@ -1,78 +1,56 @@
+
 import { Heart, Instagram, Twitter, Facebook, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
 const Footer = () => {
   const navigate = useNavigate();
-  const footerSections = [{
-    title: "Plataforma",
-    links: [{
-      label: "Sobre TH",
-      href: "/sobre-th"
-    }, {
-      label: "Agenda",
-      href: "/agenda"
-    }, {
-      label: "Comunidade",
-      href: "/comunidade"
-    }, {
-      label: "Eventos",
-      href: "/eventos"
-    }]
-  }, {
-    title: "Suporte",
-    links: [{
-      label: "Central de Ajuda",
-      href: "/contato"
-    }, {
-      label: "Denúncias",
-      href: "/seguranca"
-    }, {
-      label: "Contato",
-      href: "/contato"
-    }, {
-      label: "FAQ",
-      href: "/contato"
-    }]
-  }, {
-    title: "Legal",
-    links: [{
-      label: "Política de Privacidade",
-      href: "#"
-    }, {
-      label: "Termos de Uso",
-      href: "#"
-    }, {
-      label: "LGPD",
-      href: "#"
-    }, {
-      label: "Diretrizes da Comunidade",
-      href: "/seguranca"
-    }]
-  }];
-  const socialLinks = [{
-    icon: Instagram,
-    href: "#",
-    label: "Instagram"
-  }, {
-    icon: Twitter,
-    href: "#",
-    label: "Twitter"
-  }, {
-    icon: Facebook,
-    href: "#",
-    label: "Facebook"
-  }, {
-    icon: Mail,
-    href: "#",
-    label: "E-mail"
-  }];
+  
+  const footerSections = [
+    {
+      title: "Plataforma",
+      links: [
+        { label: "Sobre TH", href: "/sobre-th" },
+        { label: "Agenda", href: "/agenda" },
+        { label: "Comunidade", href: "/comunidade" },
+        { label: "Eventos", href: "/eventos" }
+      ]
+    },
+    {
+      title: "Suporte",
+      links: [
+        { label: "Central de Ajuda", href: "/contato" },
+        { label: "Denúncias", href: "/seguranca" },
+        { label: "Contato", href: "/contato" },
+        { label: "FAQ", href: "/faq" }
+      ]
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Política de Privacidade", href: "#" },
+        { label: "Termos de Uso", href: "#" },
+        { label: "LGPD", href: "#" },
+        { label: "Diretrizes da Comunidade", href: "/seguranca" }
+      ]
+    }
+  ];
+
+  const socialLinks = [
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Mail, href: "#", label: "E-mail" }
+  ];
+
   const handleLinkClick = (href: string) => {
     if (href.startsWith('#')) {
-      // Handle anchor links or external links
       return;
     }
     navigate(href);
   };
-  return <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+
+  return (
+    <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           {/* Main Footer Content */}
@@ -81,7 +59,7 @@ const Footer = () => {
             <div className="md:col-span-1">
               <div className="flex items-center space-x-2 mb-4 cursor-pointer" onClick={() => navigate('/')}>
                 <div className="w-8 h-8 rounded-full bg-gradient-trans"></div>
-                <span className="text-2xl font-bold">Transcare</span>
+                <span className="text-2xl font-bold">TransCare</span>
               </div>
               <p className="text-gray-300 mb-6 text-sm leading-relaxed">
                 Uma plataforma segura e acolhedora para a comunidade trans navegar sua jornada com suporte, informação e cuidado.
@@ -89,23 +67,37 @@ const Footer = () => {
               
               {/* Social Links */}
               <div className="flex space-x-4">
-                {socialLinks.map((social, index) => <button key={index} onClick={() => window.open(social.href, '_blank')} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-trans-pink/30 transition-colors duration-200" aria-label={social.label}>
+                {socialLinks.map((social, index) => (
+                  <button 
+                    key={index}
+                    onClick={() => window.open(social.href, '_blank')}
+                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-trans-pink/30 transition-colors duration-200"
+                    aria-label={social.label}
+                  >
                     <social.icon className="w-5 h-5" />
-                  </button>)}
+                  </button>
+                ))}
               </div>
             </div>
 
             {/* Footer Sections */}
-            {footerSections.map((section, index) => <div key={index}>
+            {footerSections.map((section, index) => (
+              <div key={index}>
                 <h3 className="font-semibold text-lg mb-4 text-trans-pink">{section.title}</h3>
                 <ul className="space-y-3">
-                  {section.links.map((link, linkIndex) => <li key={linkIndex}>
-                      <button onClick={() => handleLinkClick(link.href)} className="text-gray-300 hover:text-trans-blue transition-colors duration-200 text-sm text-left">
+                  {section.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <button 
+                        onClick={() => handleLinkClick(link.href)}
+                        className="text-gray-300 hover:text-trans-blue transition-colors duration-200 text-sm text-left"
+                      >
                         {link.label}
                       </button>
-                    </li>)}
+                    </li>
+                  ))}
                 </ul>
-              </div>)}
+              </div>
+            ))}
           </div>
 
           {/* Mission Statement */}
@@ -123,7 +115,7 @@ const Footer = () => {
           <div className="border-t border-white/10 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <div className="text-sm text-gray-400">
-                © 2024 TransCuidado. Todos os direitos reservados.
+                © 2024 TransCare. Todos os direitos reservados.
               </div>
               
               <div className="flex items-center space-x-2 text-sm text-gray-300">
@@ -143,19 +135,31 @@ const Footer = () => {
             <div className="text-center">
               <h4 className="text-lg font-semibold mb-4 text-trans-blue">Recursos Importantes</h4>
               <div className="flex flex-wrap justify-center gap-4 text-sm">
-                <button onClick={() => window.open('#', '_blank')} className="text-gray-300 hover:text-trans-pink transition-colors">
+                <button 
+                  onClick={() => window.open('https://www.gov.br/mdh/pt-br/navegue-por-temas/lgbt/centro-de-referencia-lgbt', '_blank')} 
+                  className="text-gray-300 hover:text-trans-pink transition-colors"
+                >
                   Centro de Referência LGBT+
                 </button>
                 <span className="text-gray-600">•</span>
-                <button onClick={() => window.open('#', '_blank')} className="text-gray-300 hover:text-trans-pink transition-colors">
+                <button 
+                  onClick={() => window.open('https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-da-populacao-lgbti', '_blank')} 
+                  className="text-gray-300 hover:text-trans-pink transition-colors"
+                >
                   SUS Trans
                 </button>
                 <span className="text-gray-600">•</span>
-                <button onClick={() => window.open('#', '_blank')} className="text-gray-300 hover:text-trans-pink transition-colors">
+                <button 
+                  onClick={() => window.open('https://www.defensoria.sp.def.br/', '_blank')} 
+                  className="text-gray-300 hover:text-trans-pink transition-colors"
+                >
                   Defensoria Pública
                 </button>
                 <span className="text-gray-600">•</span>
-                <button onClick={() => window.open('#', '_blank')} className="text-gray-300 hover:text-trans-pink transition-colors">
+                <button 
+                  onClick={() => window.open('https://antrabrasil.org/', '_blank')} 
+                  className="text-gray-300 hover:text-trans-pink transition-colors"
+                >
                   ANTRA
                 </button>
               </div>
@@ -163,6 +167,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;

@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +15,8 @@ import Security from "./pages/Security";
 import Contact from "./pages/Contact";
 import Resources from "./pages/Resources";
 import Links from "./pages/Links";
+import FAQ from "./pages/FAQ";
+import Report from "./pages/Report";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
@@ -42,6 +45,8 @@ const App = () => (
             <Route path="/contato" element={<Contact />} />
             <Route path="/recursos" element={<Resources />} />
             <Route path="/links" element={<Links />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/denunciar" element={<Report />} />
             
             {/* Rotas Protegidas */}
             <Route path="/dashboard" element={

@@ -1,3 +1,4 @@
+
 import { Mail, MessageCircle, Phone, AlertTriangle, Clock, Send } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,14 +54,7 @@ const ContactSection = () => {
   };
 
   const handleEmailContact = () => {
-    window.open('mailto:suporte@transcuidado.com.br', '_blank');
-  };
-
-  const handleUrgentReport = () => {
-    toast({
-      title: "Central de Denúncias",
-      description: "Redirecionando para formulário de denúncia urgente...",
-    });
+    window.open('mailto:suporte@transcare.com.br', '_blank');
   };
 
   const contactOptions = [
@@ -68,7 +62,7 @@ const ContactSection = () => {
       icon: Mail,
       title: "E-mail de Suporte",
       description: "Para dúvidas gerais e suporte técnico",
-      contact: "suporte@transcuidado.com.br",
+      contact: "suporte@transcare.com.br",
       responseTime: "Resposta em até 24h",
       color: "bg-trans-blue/20 border-trans-blue/30",
       action: handleEmailContact
@@ -256,7 +250,7 @@ const ContactSection = () => {
                   <Button 
                     variant="outline" 
                     className="w-full border-trans-blue text-trans-purple hover:bg-trans-blue/10"
-                    onClick={() => toast({ title: "FAQ", description: "Redirecionando para FAQ completo..." })}
+                    onClick={() => window.location.href = '/faq'}
                   >
                     Ver Todas as Perguntas
                   </Button>
@@ -282,7 +276,7 @@ const ContactSection = () => {
                   <div className="space-y-3">
                     <Button 
                       className="w-full bg-red-500 hover:bg-red-600 text-white"
-                      onClick={handleUrgentReport}
+                      onClick={() => window.location.href = '/denunciar'}
                     >
                       <AlertTriangle className="w-4 h-4 mr-2" />
                       Fazer Denúncia Urgente
@@ -290,7 +284,7 @@ const ContactSection = () => {
                     <Button 
                       variant="outline" 
                       className="w-full border-red-300 text-red-600 hover:bg-red-50"
-                      onClick={handleUrgentReport}
+                      onClick={() => window.location.href = '/denunciar'}
                     >
                       Central de Denúncias
                     </Button>
@@ -320,10 +314,10 @@ const ContactSection = () => {
                 size="lg" 
                 variant="outline" 
                 className="border-white text-white hover:bg-white hover:text-trans-purple"
-                onClick={() => window.open('mailto:urgencia@transcuidado.com.br', '_blank')}
+                onClick={() => window.open('mailto:urgencia@transcare.com.br', '_blank')}
               >
                 <Mail className="w-5 h-5 mr-2" />
-                urgencia@transcuidado.com.br
+                urgencia@transcare.com.br
               </Button>
             </div>
           </div>
