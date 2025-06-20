@@ -1,302 +1,225 @@
 
-import { AlertTriangle, Shield, Lock, Phone, Mail, MessageCircle, Send, Clock, CheckCircle } from 'lucide-react';
+import { AlertTriangle, Shield, Mail, Phone, MessageSquare } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 const ReportSection = () => {
-  const { toast } = useToast();
   const [formData, setFormData] = useState({
     type: '',
     description: '',
     evidence: '',
-    contact: '',
-    anonymous: false
+    contact: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!formData.type || !formData.description) {
-      toast({
-        title: "Erro",
-        description: "Por favor, preencha o tipo de denúncia e a descrição.",
-        variant: "destructive"
-      });
+      toast.error('Por favor, preencha todos os campos obrigatórios');
       return;
     }
-
-    // Simulate form submission
-    toast({
-      title: "Denúncia enviada!",
-      description: "Sua denúncia foi recebida e será analisada em até 24 horas.",
-    });
-
-    // Reset form
-    setFormData({
-      type: '',
-      description: '',
-      evidence: '',
-      contact: '',
-      anonymous: false
-    });
-  };
-
-  const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    
+    toast.success('Denúncia enviada com sucesso. Nossa equipe irá analisar em breve.');
+    setFormData({ type: '', description: '', evidence: '', contact: '' });
   };
 
   const reportTypes = [
     { value: 'harassment', label: 'Assédio ou Bullying' },
     { value: 'discrimination', label: 'Discriminação' },
     { value: 'spam', label: 'Spam ou Conteúdo Indesejado' },
-    { value: 'hate-speech', label: 'Discurso de Ódio' },
-    { value: 'inappropriate-content', label: 'Conteúdo Inadequado' },
-    { value: 'fake-profile', label: 'Perfil Falso' },
+    { value: 'inappropriate', label: 'Conteúdo Inapropriado' },
+    { value: 'fake', label: 'Perfil Falso' },
     { value: 'other', label: 'Outro' }
   ];
 
-  const emergencyContacts = [
-    {
-      title: "Emergência 24h",
-      description: "Para situações de risco imediato",
-      contact: "+55 (11) 9999-9999",
-      icon: Phone,
-      action: () => window.open('tel:+5511999999999')
-    },
-    {
-      title: "E-mail Urgente",
-      description: "Para denúncias graves",
-      contact: "urgencia@transcare.com",
-      icon: Mail,
-      action: () => window.open('mailto:urgencia@transcare.com')
-    }
-  ];
-
   return (
-    <section className="py-20 bg-gradient-to-br from-red-50 via-white to-trans-lavender/20 min-h-screen">
+    <section className="py-20 bg-gradient-to-br from-red-50 to-orange-50 min-h-screen">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-red-500 mr-2" />
-              <span className="text-sm font-medium text-red-500 bg-red-100 px-3 py-1 rounded-full">
-                Central de Denúncias
+              <AlertTriangle className="w-6 h-6 text-red-600 mr-2" />
+              <span className="text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                Denúncias
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
               Denunciar Comportamento Inadequado
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Sua segurança é nossa prioridade. Denuncie qualquer comportamento inadequado de forma segura e confidencial.
+              Sua segurança é nossa prioridade. Relate qualquer comportamento inadequado para mantermos nossa comunidade segura.
             </p>
           </div>
 
-          {/* Emergency Contacts */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {emergencyContacts.map((contact, index) => (
-              <Card key={index} className="border-red-200 bg-red-50">
-                <CardContent className="p-6 text-center">
-                  <contact.icon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                  <h3 className="font-semibold text-gray-800 mb-2">{contact.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{contact.description}</p>
-                  <div className="text-sm font-medium text-red-600 mb-4">{contact.contact}</div>
-                  <Button 
-                    size="sm" 
-                    className="bg-red-500 hover:bg-red-600 text-white"
-                    onClick={contact.action}
-                  >
-                    Contatar Agora
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Report Form */}
-            <Card className="border-red-200 bg-white">
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Formulário de Denúncia */}
+            <Card className="border-red-200">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2 text-red-600">
-                  <AlertTriangle className="w-6 h-6" />
-                  <span>Formulário de Denúncia</span>
+                <CardTitle className="flex items-center space-x-2 text-red-700">
+                  <Shield className="w-6 h-6" />
+                  <span>Fazer uma Denúncia</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Denúncia</label>
-                    <select 
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                      value={formData.type}
-                      onChange={(e) => handleInputChange('type', e.target.value)}
-                      required
-                    >
-                      <option value="">Selecione o tipo</option>
-                      {reportTypes.map((type) => (
-                        <option key={type.value} value={type.value}>{type.label}</option>
-                      ))}
-                    </select>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="type">Tipo de Denúncia *</Label>
+                    <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o tipo" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {reportTypes.map((type) => (
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Descrição do Ocorrido</label>
-                    <Textarea 
-                      rows={5} 
-                      placeholder="Descreva detalhadamente o que aconteceu, quando e onde..."
-                      className="border-red-200"
+
+                  <div className="space-y-2">
+                    <Label htmlFor="description">Descrição do Problema *</Label>
+                    <Textarea
+                      id="description"
                       value={formData.description}
-                      onChange={(e) => handleInputChange('description', e.target.value)}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      placeholder="Descreva detalhadamente o que aconteceu..."
+                      className="min-h-24"
                       required
                     />
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Evidências (opcional)</label>
-                    <Textarea 
-                      rows={3} 
-                      placeholder="Links, prints, ou outras evidências que possam ajudar na investigação..."
-                      className="border-red-200"
+
+                  <div className="space-y-2">
+                    <Label htmlFor="evidence">Evidências (opcional)</Label>
+                    <Textarea
+                      id="evidence"
                       value={formData.evidence}
-                      onChange={(e) => handleInputChange('evidence', e.target.value)}
+                      onChange={(e) => setFormData({ ...formData, evidence: e.target.value })}
+                      placeholder="Links, capturas de tela ou outras evidências..."
+                      className="min-h-16"
                     />
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Contato para Retorno (opcional)</label>
-                    <Input 
-                      placeholder="E-mail ou telefone para atualizações sobre sua denúncia"
-                      className="border-red-200"
+
+                  <div className="space-y-2">
+                    <Label htmlFor="contact">Seu Contato (opcional)</Label>
+                    <Input
+                      id="contact"
                       value={formData.contact}
-                      onChange={(e) => handleInputChange('contact', e.target.value)}
+                      onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                      placeholder="Email ou telefone para contato"
                     />
                   </div>
-                  
-                  <div className="flex items-start space-x-2">
-                    <input 
-                      type="checkbox" 
-                      id="anonymous" 
-                      className="mt-1"
-                      checked={formData.anonymous}
-                      onChange={(e) => handleInputChange('anonymous', e.target.checked)}
-                    />
-                    <label htmlFor="anonymous" className="text-sm text-gray-600">
-                      Fazer denúncia anônima (não será possível acompanhar o andamento)
-                    </label>
-                  </div>
-                  
-                  <Button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white">
-                    <Send className="w-4 h-4 mr-2" />
+
+                  <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white">
+                    <AlertTriangle className="w-4 h-4 mr-2" />
                     Enviar Denúncia
                   </Button>
                 </form>
               </CardContent>
             </Card>
 
-            {/* Information and Process */}
+            {/* Informações de Segurança */}
             <div className="space-y-6">
-              <Card className="border-blue-200 bg-blue-50">
+              <Card className="border-blue-200">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-blue-700">
-                    <Lock className="w-6 h-6" />
-                    <span>Confidencialidade Garantida</span>
-                  </CardTitle>
+                  <CardTitle className="text-blue-700">Como Funciona</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                    <div>
-                      <h4 className="font-medium text-gray-800">100% Confidencial</h4>
-                      <p className="text-sm text-gray-600">Suas informações são protegidas e tratadas com total sigilo.</p>
-                    </div>
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600">1</div>
+                    <p className="text-sm text-gray-600">Você envia a denúncia através do formulário</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                    <div>
-                      <h4 className="font-medium text-gray-800">Sem Retaliação</h4>
-                      <p className="text-sm text-gray-600">Temos políticas rígidas contra qualquer tipo de retaliação.</p>
-                    </div>
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600">2</div>
+                    <p className="text-sm text-gray-600">Nossa equipe analisa o caso em até 24 horas</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600">3</div>
+                    <p className="text-sm text-gray-600">Tomamos as medidas necessárias para resolver</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600">4</div>
+                    <p className="text-sm text-gray-600">Você recebe uma resposta sobre as ações tomadas</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-green-200">
+                <CardHeader>
+                  <CardTitle className="text-green-700">Contatos de Emergência</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <Phone className="w-5 h-5 text-green-600" />
                     <div>
-                      <h4 className="font-medium text-gray-800">Investigação Séria</h4>
-                      <p className="text-sm text-gray-600">Todas as denúncias são investigadas por nossa equipe especializada.</p>
+                      <p className="font-medium">Disque 100</p>
+                      <p className="text-sm text-gray-600">Disque Direitos Humanos</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="w-5 h-5 text-green-600" />
+                    <div>
+                      <p className="font-medium">180</p>
+                      <p className="text-sm text-gray-600">Central de Atendimento à Mulher</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Mail className="w-5 h-5 text-green-600" />
+                    <div>
+                      <p className="font-medium">transcare@suporte.com</p>
+                      <p className="text-sm text-gray-600">Suporte TransCare</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-purple-200 bg-purple-50">
+              <Card className="border-purple-200">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-purple-700">
-                    <Clock className="w-6 h-6" />
-                    <span>Como Funciona o Processo</span>
-                  </CardTitle>
+                  <CardTitle className="text-purple-700">Tipos de Violação</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="text-sm space-y-3">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">1</div>
-                      <div>
-                        <h4 className="font-medium text-gray-800">Recebimento (Imediato)</h4>
-                        <p className="text-gray-600">Sua denúncia é recebida e registrada em nosso sistema.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</div>
-                      <div>
-                        <h4 className="font-medium text-gray-800">Análise (24-48h)</h4>
-                        <p className="text-gray-600">Nossa equipe analisa a denúncia e coleta evidências.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</div>
-                      <div>
-                        <h4 className="font-medium text-gray-800">Investigação (3-7 dias)</h4>
-                        <p className="text-gray-600">Investigação completa com todas as partes envolvidas.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">4</div>
-                      <div>
-                        <h4 className="font-medium text-gray-800">Resolução</h4>
-                        <p className="text-gray-600">Ações apropriadas são tomadas e você é informado do resultado.</p>
-                      </div>
-                    </div>
-                  </div>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li>• Assédio, bullying ou intimidação</li>
+                    <li>• Discriminação por identidade de gênero</li>
+                    <li>• Conteúdo ofensivo ou hate speech</li>
+                    <li>• Divulgação de informações pessoais</li>
+                    <li>• Perfis falsos ou impersonação</li>
+                    <li>• Spam ou conteúdo comercial não autorizado</li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>
           </div>
 
-          {/* Support Resources */}
-          <div className="mt-16 bg-gradient-to-r from-trans-blue/10 to-trans-purple/10 rounded-2xl p-8 border border-white/20">
-            <div className="text-center">
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">Precisa de Apoio Adicional?</h3>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Além das denúncias, oferecemos recursos de apoio e orientação para situações difíceis.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="outline" 
-                  className="border-trans-purple text-trans-purple hover:bg-trans-purple/10"
-                  onClick={() => window.location.href = '/contato'}
-                >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  Falar com Suporte
-                </Button>
-                <Button 
-                  className="bg-gradient-trans text-white"
-                  onClick={() => window.location.href = '/recursos'}
-                >
-                  <Shield className="w-5 h-5 mr-2" />
-                  Ver Recursos de Apoio
-                </Button>
+          {/* Garantias de Segurança */}
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white text-center">
+            <h3 className="text-2xl font-bold mb-4">Sua Segurança é Nossa Prioridade</h3>
+            <p className="text-lg mb-6 opacity-90">
+              Todas as denúncias são tratadas com total confidencialidade e seriedade. 
+              Temos tolerância zero com comportamentos que prejudiquem nossa comunidade.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div>
+                <Shield className="w-8 h-8 mx-auto mb-2" />
+                <p className="font-semibold">Confidencial</p>
+                <p className="text-sm opacity-80">Sua identidade é protegida</p>
+              </div>
+              <div>
+                <MessageSquare className="w-8 h-8 mx-auto mb-2" />
+                <p className="font-semibold">Resposta Rápida</p>
+                <p className="text-sm opacity-80">Análise em até 24h</p>
+              </div>
+              <div>
+                <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
+                <p className="font-semibold">Ação Efetiva</p>
+                <p className="text-sm opacity-80">Medidas concretas</p>
               </div>
             </div>
           </div>

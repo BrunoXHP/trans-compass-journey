@@ -1,127 +1,244 @@
+
+import { ExternalLink, Heart, Users, BookOpen, Shield, Phone } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Github, ExternalLink, Code, Heart, ArrowRight, Sparkles, LinkIcon } from 'lucide-react';
+
 const LinksSection = () => {
-  const links = [{
-    title: "Código no GitHub",
-    description: "Acesse o código-fonte completo do projeto, contribua com melhorias e acompanhe as atualizações.",
-    icon: Github,
-    href: "https://github.com/BrunoXHP/trans-compass-journey",
-    buttonText: "Ver no GitHub",
-    color: "bg-gray-900 hover:bg-gray-800",
-    iconColor: "text-white",
-    delay: "delay-200"
-  }, {
-    title: "Documentação",
-    description: "Guias completos sobre como usar a plataforma, APIs disponíveis e recursos para desenvolvedores.",
-    icon: Code,
-    href: "https://docs.transcare.com",
-    buttonText: "Acessar Docs",
-    color: "bg-trans-blue hover:bg-trans-blue/80",
-    iconColor: "text-white",
-    delay: "delay-300"
-  }, {
-    title: "Como Contribuir",
-    description: "Saiba como você pode ajudar a melhorar nosso site e apoiar a comunidade trans brasileira.",
-    icon: Heart,
-    href: "#contribuir",
-    buttonText: "Contribuir",
-    color: "bg-trans-pink hover:bg-trans-pink/80",
-    iconColor: "text-white",
-    delay: "delay-400"
-  }];
-  
-  return <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20 overflow-hidden">
-      <div className="container mx-auto px-4 relative">
-        {/* Floating background elements */}
-        <div className="absolute top-10 right-10 w-24 h-24 bg-trans-blue/5 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-32 h-32 bg-trans-pink/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        
+  const linkCategories = [
+    {
+      title: "Organizações LGBT+",
+      icon: Heart,
+      color: "text-pink-600",
+      bgColor: "bg-pink-50",
+      borderColor: "border-pink-200",
+      links: [
+        {
+          name: "ANTRA - Associação Nacional de Travestis e Transexuais",
+          url: "https://antrabrasil.org/",
+          description: "Principal organização de defesa dos direitos de pessoas trans no Brasil"
+        },
+        {
+          name: "ABGLT - Associação Brasileira de Lésbicas, Gays, Bissexuais, Travestis e Transexuais",
+          url: "https://www.abglt.org/",
+          description: "Rede nacional de organizações LGBT+"
+        },
+        {
+          name: "Casa 1",
+          url: "https://www.casaum.org/",
+          description: "Centro de cultura e acolhimento LGBT+ em São Paulo"
+        },
+        {
+          name: "Grupo Dignidade",
+          url: "https://www.grupodignidade.org.br/",
+          description: "Organização pelos direitos LGBT+ no Paraná"
+        }
+      ]
+    },
+    {
+      title: "Saúde e Suporte",
+      icon: Shield,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-200",
+      links: [
+        {
+          name: "SUS - Processo Transexualizador",
+          url: "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-da-populacao-lgbti",
+          description: "Informações sobre atendimento trans no SUS"
+        },
+        {
+          name: "Centro de Referência LGBT+ São Paulo",
+          url: "https://www.prefeitura.sp.gov.br/cidade/secretarias/direitos_humanos/lgbt/",
+          description: "Atendimento especializado para população LGBT+"
+        },
+        {
+          name: "CVV - Centro de Valorização da Vida",
+          url: "https://www.cvv.org.br/",
+          description: "Apoio emocional e prevenção do suicídio - 188"
+        },
+        {
+          name: "Mapa da Saúde Trans",
+          url: "https://mapadasaudetrans.com.br/",
+          description: "Profissionais de saúde que atendem pessoas trans"
+        }
+      ]
+    },
+    {
+      title: "Direitos e Justiça",
+      icon: BookOpen,
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
+      links: [
+        {
+          name: "Defensoria Pública do Estado de São Paulo",
+          url: "https://www.defensoria.sp.def.br/",
+          description: "Assistência jurídica gratuita"
+        },
+        {
+          name: "CNJ - Provimento 73/2018",
+          url: "https://atos.cnj.jus.br/atos/detalhar/2623",
+          description: "Alteração de nome e gênero em cartório"
+        },
+        {
+          name: "Ministério dos Direitos Humanos",
+          url: "https://www.gov.br/mdh/pt-br/navegue-por-temas/lgbt",
+          description: "Políticas públicas para população LGBT+"
+        },
+        {
+          name: "OAB - Comissão da Diversidade Sexual",
+          url: "https://www.oab.org.br/",
+          description: "Suporte jurídico especializado"
+        }
+      ]
+    },
+    {
+      title: "Educação e Pesquisa",
+      icon: Users,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
+      borderColor: "border-purple-200",
+      links: [
+        {
+          name: "IBTE - Instituto Brasileiro de Transmasculinidades",
+          url: "https://www.ibte.com.br/",
+          description: "Pesquisa e advocacy para homens trans"
+        },
+        {
+          name: "TransRevolução",
+          url: "https://www.transrevolucao.org/",
+          description: "Coletivo de pessoas trans por direitos"
+        },
+        {
+          name: "Prepara Nem",
+          url: "https://www.preparanem.com/",
+          description: "Cursinho popular para pessoas LGBT+"
+        },
+        {
+          name: "Universidade Federal do Rio Grande do Sul - GÊNERO",
+          url: "https://www.ufrgs.br/genero/",
+          description: "Núcleo de pesquisa em gênero e sexualidade"
+        }
+      ]
+    }
+  ];
+
+  const emergencyContacts = [
+    {
+      name: "Disque 100",
+      description: "Disque Direitos Humanos",
+      number: "100"
+    },
+    {
+      name: "Central de Atendimento à Mulher",
+      description: "Violência contra a mulher",
+      number: "180"
+    },
+    {
+      name: "CVV",
+      description: "Apoio emocional 24h",
+      number: "188"
+    }
+  ];
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-trans-lavender/20 to-trans-pink/10 min-h-screen">
+      <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16 animate-fade-in">
+          <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-4">
-              <LinkIcon className="w-6 h-6 text-trans-purple mr-2 animate-pulse" />
+              <ExternalLink className="w-6 h-6 text-trans-purple mr-2" />
               <span className="text-sm font-medium text-trans-purple bg-trans-purple/10 px-3 py-1 rounded-full">
-                Open Source & Gratuito
+                Links Úteis
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-trans bg-clip-text text-transparent leading-tight">
-              Links Úteis
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-trans bg-clip-text text-transparent">
+              Recursos e Links Importantes
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Acesse nosso código-fonte, documentação e descubra como contribuir para o projeto
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Uma curadoria de organizações, serviços e recursos essenciais para a comunidade trans
             </p>
           </div>
 
-          {/* Link Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {links.map((link, index) => <div key={index} className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${link.delay} text-center group hover:bg-white/80`}>
-                <div className="mb-6">
-                  <div className={`w-16 h-16 ${link.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    <link.icon className={`w-8 h-8 ${link.iconColor} group-hover:rotate-12 transition-transform duration-300`} />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-                    {link.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-6">
-                    {link.description}
-                  </p>
+          {/* Links Categories */}
+          <div className="space-y-12 mb-16">
+            {linkCategories.map((category, categoryIndex) => (
+              <div key={categoryIndex}>
+                <div className={`flex items-center mb-6 ${category.color}`}>
+                  <category.icon className="w-6 h-6 mr-3" />
+                  <h2 className="text-2xl font-bold">{category.title}</h2>
                 </div>
                 
-                <Button size="lg" className={`${link.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`} onClick={() => window.open(link.href, '_blank')}>
-                  {link.buttonText}
-                  <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                </Button>
-              </div>)}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {category.links.map((link, linkIndex) => (
+                    <Card key={linkIndex} className={`${category.borderColor} ${category.bgColor} hover:shadow-lg transition-shadow`}>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center justify-between">
+                          <span className={category.color}>{link.name}</span>
+                          <ExternalLink className={`w-4 h-4 ${category.color}`} />
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-600 mb-4 text-sm leading-relaxed">{link.description}</p>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={`${category.color} border-current hover:bg-current hover:text-white transition-colors`}
+                          onClick={() => window.open(link.url, '_blank')}
+                        >
+                          Visitar Site
+                          <ExternalLink className="w-3 h-3 ml-2" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Developer Section */}
-          <div className="bg-gradient-to-r from-trans-blue/10 to-trans-purple/10 rounded-2xl p-8 mb-16 border border-white/20 hover:shadow-lg transition-all duration-300 animate-fade-in delay-500">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-trans-purple/10 rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
-                <Code className="w-8 h-8 text-trans-purple" />
-              </div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-800">
-                Para Desenvolvedores
-              </h2>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
-                O TransCare é um projeto open-source construído com React, TypeScript e CSS. 
-                Convidamos desenvolvedores a contribuir com melhorias, correções e novas funcionalidades.
+          {/* Emergency Contacts */}
+          <div className="bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl p-8 text-white">
+            <div className="text-center mb-8">
+              <Phone className="w-8 h-8 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-2">Contatos de Emergência</h3>
+              <p className="opacity-90">Números importantes para situações de risco ou emergência</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {emergencyContacts.map((contact, index) => (
+                <div key={index} className="bg-white/10 rounded-lg p-6 text-center backdrop-blur-sm">
+                  <div className="text-3xl font-bold mb-2">{contact.number}</div>
+                  <div className="font-semibold mb-1">{contact.name}</div>
+                  <div className="text-sm opacity-80">{contact.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-trans rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">Conhece algum recurso importante?</h3>
+              <p className="text-lg mb-6 opacity-90">
+                Ajude nossa comunidade sugerindo organizações, serviços ou recursos que deveriam estar nesta lista
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="outline" className="border-trans-purple text-trans-purple hover:bg-trans-purple/10 hover:scale-105 transition-all duration-300 group" onClick={() => window.open('https://github.com/BrunoXHP/trans-compass-journey/issues', '_blank')}>
-                  <Github className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-                  Ver Issues
-                </Button>
-                <Button size="lg" className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white transition-all duration-300 shadow-md hover:shadow-lg group" onClick={() => window.open('https://github.com/BrunoXHP/trans-compass-journey/pulls', '_blank')}>
-                  <Code className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                  Pull Requests
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                </Button>
-              </div>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-trans-purple"
+                onClick={() => window.location.href = '/contato'}
+              >
+                <Heart className="w-5 h-5 mr-2" />
+                Sugerir Recurso
+              </Button>
             </div>
-          </div>
-
-          {/* Community Section */}
-          <div className="text-center animate-fade-in delay-600">
-            <div className="w-16 h-16 bg-gradient-trans rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform duration-300 shadow-lg">
-              <Heart className="w-8 h-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">Feito com ❤️ para comunidade trans</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-              Este projeto é desenvolvido por e para a comunidade trans, priorizando sempre 
-              a segurança, inclusão e bem-estar de todas as pessoas.
-            </p>
-            
-            <Button size="lg" className="bg-gradient-trans hover:opacity-90 hover:scale-105 text-white px-8 py-4 transition-all duration-300 shadow-lg hover:shadow-xl group" onClick={() => window.location.href = '/comunidade'}>
-              <Heart className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
-              Conhecer a Comunidade
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-            </Button>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default LinksSection;
