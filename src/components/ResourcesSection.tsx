@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { BookOpen, FileText, Video, Heart, ArrowRight, Sparkles, GraduationCap } from 'lucide-react';
+import { BookOpen, FileText, Video, Heart, ArrowRight, Sparkles, GraduationCap, Github, FileCode } from 'lucide-react';
 
 const ResourcesSection = () => {
   const educationalResources = [
@@ -36,6 +36,29 @@ const ResourcesSection = () => {
     }
   ];
 
+  const developmentResources = [
+    {
+      title: "Código no GitHub",
+      description: "Acesse o código-fonte completo do TransCare e contribua para o desenvolvimento da plataforma.",
+      icon: Github,
+      href: "https://github.com/BrunoXHP/trans-compass-journey",
+      buttonText: "Ver no GitHub",
+      color: "bg-gray-800 hover:bg-gray-700",
+      iconColor: "text-white",
+      delay: "delay-500"
+    },
+    {
+      title: "Documentação Técnica",
+      description: "Documentação completa do projeto, incluindo arquitetura, APIs e guias de contribuição.",
+      icon: FileCode,
+      href: "https://docs.google.com/document/d/1RWmq_Qs_9aFg33cI-tu4TAY5KNBioNnUtlGeQDBTUnE/edit?usp=drive_link",
+      buttonText: "Ver Documentação",
+      color: "bg-blue-600 hover:bg-blue-500",
+      iconColor: "text-white",
+      delay: "delay-600"
+    }
+  ];
+
   return (
     <section className="min-h-screen bg-gradient-to-br from-trans-lavender via-white to-trans-pink/20 py-20 overflow-hidden">
       <div className="container mx-auto px-4 relative">
@@ -61,34 +84,71 @@ const ResourcesSection = () => {
           </div>
 
           {/* Educational Resource Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {educationalResources.map((resource, index) => (
-              <div 
-                key={index} 
-                className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${resource.delay} text-center group hover:bg-white/80`}
-              >
-                <div className="mb-6">
-                  <div className={`w-16 h-16 ${resource.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    <resource.icon className={`w-8 h-8 ${resource.iconColor} group-hover:rotate-12 transition-transform duration-300`} />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-                    {resource.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-6">
-                    {resource.description}
-                  </p>
-                </div>
-                
-                <Button 
-                  size="lg" 
-                  className={`${resource.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`}
-                  onClick={() => window.open(resource.href, '_blank')}
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Materiais Educativos</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {educationalResources.map((resource, index) => (
+                <div 
+                  key={index} 
+                  className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${resource.delay} text-center group hover:bg-white/80`}
                 >
-                  {resource.buttonText}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                </Button>
-              </div>
-            ))}
+                  <div className="mb-6">
+                    <div className={`w-16 h-16 ${resource.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <resource.icon className={`w-8 h-8 ${resource.iconColor} group-hover:rotate-12 transition-transform duration-300`} />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+                      {resource.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      {resource.description}
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    size="lg" 
+                    className={`${resource.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`}
+                    onClick={() => window.open(resource.href, '_blank')}
+                  >
+                    {resource.buttonText}
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Development Resources */}
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Recursos de Desenvolvimento</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {developmentResources.map((resource, index) => (
+                <div 
+                  key={index} 
+                  className={`bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-trans-pink/20 hover:shadow-xl hover:scale-105 transition-all duration-500 animate-fade-in ${resource.delay} text-center group hover:bg-white/80`}
+                >
+                  <div className="mb-6">
+                    <div className={`w-16 h-16 ${resource.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <resource.icon className={`w-8 h-8 ${resource.iconColor} group-hover:rotate-12 transition-transform duration-300`} />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+                      {resource.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      {resource.description}
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    size="lg" 
+                    className={`${resource.color} text-white px-6 py-3 w-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group/btn`}
+                    onClick={() => window.open(resource.href, '_blank')}
+                  >
+                    {resource.buttonText}
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Community Section */}
