@@ -28,7 +28,7 @@ const ResourcesSection = () => {
       title: "Vídeos Educativos",
       description: "Série de vídeos com profissionais da saúde e pessoas trans compartilhando experiências.",
       icon: Video,
-      href: "/recursos/videos",
+      href: "https://www.youtube.com/@luiza_mayers",
       buttonText: "Assistir",
       color: "bg-trans-pink hover:bg-trans-pink/80",
       iconColor: "text-white",
