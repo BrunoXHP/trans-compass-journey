@@ -48,7 +48,7 @@ const ContactSection = () => {
     {
       icon: MapPin,
       title: "Endereço",
-      value: "São Paulo, SP",
+      value: "Salvador, BA",
       description: "Atendimento presencial agendado",
       color: "text-purple-600"
     },
