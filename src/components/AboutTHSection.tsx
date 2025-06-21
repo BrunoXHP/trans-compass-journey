@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -52,9 +51,6 @@ const AboutTHSection = () => {
                     <p>É essencial buscar profissionais qualificados e ter acesso a informações confiáveis para uma jornada segura e bem-sucedida.</p>
                     <p>Nossa comunidade está aqui para oferecer suporte, compartilhar experiências e conectar você com recursos valiosos.</p>
                   </div>
-                  <Button className="mt-6 bg-gradient-trans text-white">
-                    Encontrar Profissionais Especializados
-                  </Button>
                 </CardContent>
               </Card>
             </TabsContent>
