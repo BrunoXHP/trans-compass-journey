@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -31,7 +32,7 @@ const AboutTHSection = () => {
               Entendendo a Terapia Hormonal
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Informações claras e acessíveis sobre TH para te ajudar a tomar decisões informadas na sua jornada
+              Informações claras e acessíveis sobre TH para ajudá-lo a tomar decisões informadas em sua jornada
             </p>
           </div>
 
@@ -49,7 +50,7 @@ const AboutTHSection = () => {
                   <div className="space-y-4 text-gray-600">
                     <p>A terapia hormonal é um processo individual que requer acompanhamento médico especializado. Cada pessoa tem necessidades únicas e respostas diferentes ao tratamento.</p>
                     <p>É essencial buscar profissionais qualificados e ter acesso a informações confiáveis para uma jornada segura e bem-sucedida.</p>
-                    <p>Nossa comunidade está aqui para oferecer suporte, compartilhar experiências e conectar você com recursos valiosos.</p>
+                    <p>Nossa comunidade está aqui para oferecer suporte, compartilhar experiências e conectá-lo com recursos valiosos.</p>
                   </div>
                 </CardContent>
               </Card>
@@ -60,9 +61,9 @@ const AboutTHSection = () => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-semibold mb-4 text-trans-blue">Terapia Hormonal Feminina</h3>
                   <div className="space-y-4 text-gray-600">
-                    <p>A TH feminina geralmente utiliza estrogênio e anti-andrógenos para promover características femininas como desenvolvimento mamário, redistribuição de gordura e diminuição de pelos corporais.</p>
+                    <p>A TH feminina geralmente utiliza estrogênio e antiandrogênios para promover características femininas como desenvolvimento mamário, redistribuição de gordura e diminuição de pelos corporais.</p>
                     <p>Os efeitos começam a aparecer gradualmente, com algumas mudanças visíveis nos primeiros meses e outras ao longo de anos.</p>
-                    <p>Acompanhamento médico regular é essencial para monitorar níveis hormonais e possíveis efeitos colaterais.</p>
+                    <p>O acompanhamento médico regular é essencial para monitorar níveis hormonais e possíveis efeitos colaterais.</p>
                   </div>
                 </CardContent>
               </Card>

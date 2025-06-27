@@ -51,7 +51,7 @@ const Auth = () => {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success('Conta criada com sucesso! Verifique seu email para confirmar.');
+      toast.success('Conta criada com sucesso! Verifique seu e-mail para confirmar.');
     }
     
     setLoading(false);
@@ -91,7 +91,7 @@ const Auth = () => {
                   <TabsContent value="login">
                     <form onSubmit={handleSignIn} className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">E-mail</Label>
                         <Input
                           id="email"
                           type="email"
@@ -136,7 +136,7 @@ const Auth = () => {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">E-mail</Label>
                         <Input
                           id="email"
                           type="email"
@@ -181,7 +181,7 @@ const Auth = () => {
             <div className="mt-8 text-center">
               <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
                 <Users className="w-4 h-4" />
-                <span>Junte-se a nossa comunidade de apoio</span>
+                <span>Junte-se à nossa comunidade de apoio</span>
               </div>
             </div>
           </div>

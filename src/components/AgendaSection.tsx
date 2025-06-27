@@ -135,13 +135,13 @@ const AgendaSection = () => {
             <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-trans-pink/20">
               <Calendar className="w-12 h-12 text-trans-pink mx-auto mb-4" />
               <h3 className="font-semibold text-gray-800 mb-2">Sincronização</h3>
-              <p className="text-sm text-gray-600">Integre com seu calendário favorito e acesse de qualquer dispositivo</p>
+              <p className="text-sm text-gray-600">Integre-se com seu calendário favorito e acesse de qualquer dispositivo</p>
             </div>
             
             <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-trans-purple/20">
               <User className="w-12 h-12 text-trans-purple mx-auto mb-4" />
               <h3 className="font-semibold text-gray-800 mb-2">Privacidade Total</h3>
-              <p className="text-sm text-gray-600">Seus dados de saúde são protegidos com criptografia de ponta</p>
+              <p className="text-sm text-gray-600">Seus dados de saúde são protegidos com criptografia de ponta a ponta</p>
             </div>
           </div>
         </div>

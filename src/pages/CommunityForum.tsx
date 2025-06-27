@@ -71,7 +71,7 @@ const CommunityForum = () => {
               className="bg-gradient-trans text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Novo Post
+              Nova Publicação
             </Button>
           </div>
 
